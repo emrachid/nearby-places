@@ -9,7 +9,7 @@ fetch the nearby places using Google Places API and display a list of results.
 
 Create your Google Maps API key and add your key in the "gradle.properties" file.
 Get an API key following this documentation:
-[https://developers.google.com/places/web-service/get-api-key]
+https://developers.google.com/places/web-service/get-api-key
 
 ## Android Studio
 
@@ -28,7 +28,7 @@ chmod +x gradlew
 ## API
 
 This project uses the Google Maps API Nearby Search request.
-See the documentation [here][https://developers.google.com/places/web-service/search#PlaceSearchRequests]
+See the documentation [here](https://developers.google.com/places/web-service/search#PlaceSearchRequests).
 
 ## License
 
