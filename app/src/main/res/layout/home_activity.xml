@@ -1,0 +1,65 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
+    android:id="@+id/home_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:weightSum="3.0"
+    tools:context=".presentation.home.HomeActivity"
+    >
+
+    <TextView
+        android:id="@+id/location_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/location"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="20dp"
+        android:textAlignment="center"
+        android:text="Finding current location..."
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/bars_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:layout_margin="40dp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_rounded"
+        android:padding="15dp"
+        android:text="@string/bars"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/cafes_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:layout_margin="40dp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_rounded"
+        android:padding="15dp"
+        android:text="@string/cafes"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/restaurants_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:layout_margin="40dp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_rounded"
+        android:padding="15dp"
+        android:text="@string/restaurants"
+        android:textSize="20sp" />
+
+</LinearLayout>
+</layout>
