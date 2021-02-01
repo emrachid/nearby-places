@@ -3,13 +3,9 @@ package com.example.findnearbyplaces.util
 import com.example.findnearbyplaces.data.model.place.Location
 
 class LocationDistanceImpl : LocationDistance {
-    // location with a threshold distance will be considered the same location
-    companion object {
-        private const val DISTANCE_THRESHOLD = 0.1
-    }
 
-    override fun isNearBy(fromLocation: Location, toLocation: Location): Boolean {
-        return distance(fromLocation.lat, toLocation.lat, fromLocation.lng, toLocation.lng) < DISTANCE_THRESHOLD
+    override fun isNearBy(fromLocation: Location, toLocation: Location, threshold: Double): Boolean {
+        return distance(fromLocation.lat, toLocation.lat, fromLocation.lng, toLocation.lng) < threshold
     }
 
     private fun distance(
