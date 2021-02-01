@@ -32,6 +32,7 @@ class PlaceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.place_activity)
 
         (application as Injector).createPlaceSubComponent().inject(this)
@@ -42,6 +43,7 @@ class PlaceActivity : AppCompatActivity() {
 
         Log.d(TAG, "Type: $placeType - Location - $location")
 
+        // Update status bar title
         supportActionBar?.title = placeType.toUpperCase(Locale.ROOT) + 'S'
 
         initRecyclerView()
@@ -51,11 +53,25 @@ class PlaceActivity : AppCompatActivity() {
         binding.placeRecyclerView.layoutManager = LinearLayoutManager(this)
         placeAdapter = PlaceAdapter()
         binding.placeRecyclerView.adapter = placeAdapter
-        displayNearbyPlaces()
+
+        binding.swipeRefresh.setOnRefreshListener {
+            displayNearbyPlaces()
+        }
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        binding.swipeRefresh.post(Runnable {
+            // Fetching data from server
+            displayNearbyPlaces()
+        })
     }
 
     private fun displayNearbyPlaces() {
-        binding.placeProgressBar.visibility = View.VISIBLE
+        // Showing refresh animation before making http call
+        binding.swipeRefresh.isRefreshing = true;
+
         val responseLiveData = placeViewModel.getNearByPlaces(placeType, location)
         responseLiveData.observe(this, {
             if (it != null) {
@@ -68,7 +84,7 @@ class PlaceActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-            binding.placeProgressBar.visibility = View.GONE
+            binding.swipeRefresh.isRefreshing = false;
         })
     }
 }
