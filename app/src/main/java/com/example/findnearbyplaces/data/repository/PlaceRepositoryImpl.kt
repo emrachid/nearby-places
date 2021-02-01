@@ -23,9 +23,14 @@ class PlaceRepositoryImpl(
     }
 
     private suspend fun getNearByPlacesFromApi(type: String, location: Location): List<Place>? {
-        val response = placeRemoteDataSource.getNearByPlaces(type, location)
-        Log.d(TAG, "getNearByPlacesFromApi: $response")
-        return response.body()?.results
+        return try {
+            val response = placeRemoteDataSource.getNearByPlaces(type, location)
+            Log.d(TAG, "getNearByPlacesFromApi: $response")
+            response.body()?.results
+        } catch (exception: Exception) {
+            Log.d(TAG, exception.toString())
+            null
+        }
     }
 
     private suspend fun getNearByPlacesFromCache(type: String, location: Location): List<Place>? {
