@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ApiModule(private val baseUrl: String) {
+class GooglePlacesApiModule(private val baseUrl: String) {
 
     @Singleton
     @Provides

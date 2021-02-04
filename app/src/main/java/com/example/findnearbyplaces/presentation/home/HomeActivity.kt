@@ -4,17 +4,23 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.findnearbyplaces.R
 import com.example.findnearbyplaces.data.model.place.Location
 import com.example.findnearbyplaces.databinding.HomeActivityBinding
+import com.example.findnearbyplaces.presentation.di.Injector
 import com.example.findnearbyplaces.presentation.place.PlaceActivity
 import com.example.findnearbyplaces.util.AlertDialog
 import com.example.findnearbyplaces.util.PermissionControl
 import com.google.android.gms.location.LocationServices
+import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {
+    @Inject
+    lateinit var factory: HomeViewModelFactory
 
     companion object {
         private var TAG = HomeActivity::class.java.simpleName
@@ -27,11 +33,15 @@ class HomeActivity : AppCompatActivity() {
         private const val RESTAURANT_TYPE = "restaurant"
     }
 
+    private lateinit var homeViewModel: HomeViewModel
     private lateinit var binding: HomeActivityBinding
     private lateinit var location: Location
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        (application as Injector).createHomeSubComponent().inject(this)
+        homeViewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
         binding = DataBindingUtil.setContentView(this, R.layout.home_activity)
 
@@ -43,6 +53,9 @@ class HomeActivity : AppCompatActivity() {
         }
         binding.restaurantsButton.setOnClickListener {
             showPlaces(RESTAURANT_TYPE)
+        }
+        binding.locationButton.setOnClickListener {
+            showLocation()
         }
 
         setButtonsState(false)
@@ -57,6 +70,7 @@ class HomeActivity : AppCompatActivity() {
         binding.barsButton.isEnabled = enable
         binding.cafesButton.isEnabled = enable
         binding.restaurantsButton.isEnabled = enable
+        binding.locationButton.isEnabled = enable
     }
 
     override fun onRequestPermissionsResult(
@@ -99,12 +113,29 @@ class HomeActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful && task.result != null) {
                     location = Location(task.result.latitude, task.result.longitude)
-                    setButtonsState(true)
-                    binding.locationTxt?.text = "Location: $location"
+                    Log.d(TAG, "Location: $location")
+                    displayLastLocation()
                 } else {
                     Log.w(TAG, "getLastLocation:exception", task.exception)
                     AlertDialog.showSnackbar(this, getString(R.string.no_location_detected))
                 }
             }
     }
+
+    private fun displayLastLocation() {
+        val responseLiveData = homeViewModel.getLocationAddress(location)
+        responseLiveData.observe(this, {
+            if (it != null) {
+                setButtonsState(true)
+                binding.locationTxt.text = "Location: ${it.road}"
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    "No data available. Please check your network connection",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
+    }
+
 }

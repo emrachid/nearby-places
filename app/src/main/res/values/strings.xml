@@ -16,4 +16,5 @@
     <string name="restaurants">Restaurants</string>
     <string name="find_near_by_places">Find near by places</string>
     <string name="finding_current_location">Finding current location...</string>
+    <string name="refresh_current_location">Refresh current location</string>
 </resources>

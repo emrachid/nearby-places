@@ -43,7 +43,7 @@ class PlaceViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(bi
         binding.descriptionTextView.text = place.business_status
         place.photos?.get(0)?.photo_reference?.let {
             val photoURL = "https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=" +
-                    it + "&key=${BuildConfig.API_KEY}"
+                    it + "&key=${BuildConfig.GOOGLE_API_KEY}"
             Glide.with(binding.imageView.context).load(photoURL).into(binding.imageView)
         }
     }

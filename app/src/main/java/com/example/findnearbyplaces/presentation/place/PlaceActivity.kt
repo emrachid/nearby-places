@@ -2,7 +2,6 @@ package com.example.findnearbyplaces.presentation.place
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -62,15 +61,15 @@ class PlaceActivity : AppCompatActivity() {
          * Showing Swipe Refresh animation on activity create
          * As animation won't start on onCreate, post runnable is used
          */
-        binding.swipeRefresh.post(Runnable {
+        binding.swipeRefresh.post {
             // Fetching data from server
             displayNearbyPlaces()
-        })
+        }
     }
 
     private fun displayNearbyPlaces() {
         // Showing refresh animation before making http call
-        binding.swipeRefresh.isRefreshing = true;
+        binding.swipeRefresh.isRefreshing = true
 
         val responseLiveData = placeViewModel.getNearByPlaces(placeType, location)
         responseLiveData.observe(this, {
@@ -84,7 +83,7 @@ class PlaceActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-            binding.swipeRefresh.isRefreshing = false;
+            binding.swipeRefresh.isRefreshing = false
         })
     }
 }

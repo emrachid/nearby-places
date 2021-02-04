@@ -1,5 +1,7 @@
 package com.example.findnearbyplaces.presentation.di.core
 
+import com.example.findnearbyplaces.data.repository.address.datasource.AddressCacheDataSource
+import com.example.findnearbyplaces.data.repository.address.datasourceimpl.AddressCacheDataSourceImpl
 import com.example.findnearbyplaces.data.repository.place.datasource.PlaceCacheDataSource
 import com.example.findnearbyplaces.data.repository.place.datasourceimpl.PlaceCacheDataSourceImpl
 import com.example.findnearbyplaces.util.LocationDistance
@@ -14,5 +16,11 @@ class CacheDataModule {
     @Provides
     fun providePlaceCacheDataSource(locationDistance: LocationDistance): PlaceCacheDataSource {
         return PlaceCacheDataSourceImpl(locationDistance)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAddressCacheDataSource(): AddressCacheDataSource {
+        return AddressCacheDataSourceImpl()
     }
 }

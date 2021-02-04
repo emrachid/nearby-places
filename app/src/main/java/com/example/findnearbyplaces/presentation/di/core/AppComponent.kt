@@ -1,19 +1,26 @@
 package com.example.findnearbyplaces.presentation.di.core
 
+import com.example.findnearbyplaces.presentation.di.home.HomeSubComponent
 import com.example.findnearbyplaces.presentation.di.place.PlaceSubComponent
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [
-    ApiModule::class,
     AppModule::class,
     CacheDataModule::class,
+    GooglePlacesApiModule::class,
+    LocationIQApiModule::class,
     LocationDistanceModule::class,
-    RemoteDataModule::class,
+    LocationIQApiModule::class,
+    PlaceRemoteDataModule::class,
+    AddressRemoteDataModule::class,
+    AddressLocalDataModule::class,
     RepositoryModule::class,
-    UseCaseModule::class
+    UseCaseModule::class,
+    DataBaseModule::class,
 ])
 interface AppComponent {
     fun placeSubComponent(): PlaceSubComponent.Factory
+    fun homeSubComponent(): HomeSubComponent.Factory
 }

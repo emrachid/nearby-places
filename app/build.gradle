@@ -16,8 +16,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "API_KEY", "\"$google_maps_api_key\""
-        buildConfigField "String", "BASE_URL", "\"https://maps.googleapis.com/\""
+        buildConfigField "String", "GOOGLE_API_KEY", "\"$google_maps_api_key\""
+        buildConfigField "String", "GOOGLE_BASE_URL", "\"https://maps.googleapis.com/maps/api/\""
+
+        buildConfigField "String", "LOCATIONIQ_API_KEY", "\"$locationIQ_api_key\""
+        buildConfigField "String", "LOCATIONIQ_BASE_URL", "\"https://us1.locationiq.com/v1/\""
     }
 
     buildTypes {
@@ -44,7 +47,12 @@ dependencies {
     def lifecycle_version = '2.2.0'
     def dagger_version = '2.31.2'
     def glide_version = '4.11.0'
+    def room_version = "2.2.6"
 
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 //    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
