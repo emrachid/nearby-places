@@ -61,8 +61,8 @@ class HomeActivity : AppCompatActivity() {
         setButtonsState(false)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         showLocation()
     }
 
