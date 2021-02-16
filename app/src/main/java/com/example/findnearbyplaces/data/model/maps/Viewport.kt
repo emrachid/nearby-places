@@ -1,4 +1,5 @@
-package com.example.findnearbyplaces.data.model.place
+package com.example.findnearbyplaces.data.model.maps
+
 
 data class Viewport(
     val northeast: Northeast,

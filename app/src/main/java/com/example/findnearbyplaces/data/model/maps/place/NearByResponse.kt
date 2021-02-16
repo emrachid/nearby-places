@@ -1,4 +1,4 @@
-package com.example.findnearbyplaces.data.model.place
+package com.example.findnearbyplaces.data.model.maps.place
 
 data class NearByResponse(
     val html_attributions: List<Any>,

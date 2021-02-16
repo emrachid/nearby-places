@@ -1,11 +1,17 @@
 package com.example.findnearbyplaces.util
 
-import com.example.findnearbyplaces.data.model.place.Location
+import com.example.findnearbyplaces.data.model.maps.Location
 
 class LocationDistanceImpl : LocationDistance {
-
+    companion object {
+        private const val MILES_TO_METERS = 1609.344
+    }
     override fun isNearBy(fromLocation: Location, toLocation: Location, threshold: Double): Boolean {
         return distance(fromLocation.lat, toLocation.lat, fromLocation.lng, toLocation.lng) < threshold
+    }
+
+    override fun getInMeters(fromLocation: Location, toLocation: Location): Double {
+        return distance(fromLocation.lat, toLocation.lat, fromLocation.lng, toLocation.lng) * MILES_TO_METERS
     }
 
     private fun distance(

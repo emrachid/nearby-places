@@ -1,7 +1,7 @@
 package com.example.findnearbyplaces.data.repository.place.datasource
 
-import com.example.findnearbyplaces.data.model.place.Location
-import com.example.findnearbyplaces.data.model.place.Place
+import com.example.findnearbyplaces.data.model.maps.Location
+import com.example.findnearbyplaces.data.model.Place
 
 interface PlaceCacheDataSource {
     suspend fun getNearByPlacesFromCache(type: String, location: Location): List<Place>?

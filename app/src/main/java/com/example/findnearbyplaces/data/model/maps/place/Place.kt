@@ -1,4 +1,6 @@
-package com.example.findnearbyplaces.data.model.place
+package com.example.findnearbyplaces.data.model.maps.place
+
+import com.example.findnearbyplaces.data.model.maps.PlusCode
 
 data class Place(
     val business_status: String,

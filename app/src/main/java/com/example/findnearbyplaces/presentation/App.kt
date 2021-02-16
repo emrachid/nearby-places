@@ -16,8 +16,6 @@ class App : Application(), Injector {
             .appModule(AppModule(applicationContext))
             .googlePlacesApiModule(GooglePlacesApiModule(BuildConfig.GOOGLE_BASE_URL))
             .locationIQApiModule(LocationIQApiModule(BuildConfig.LOCATIONIQ_BASE_URL))
-            .placeRemoteDataModule(PlaceRemoteDataModule(BuildConfig.GOOGLE_API_KEY))
-            .addressRemoteDataModule(AddressRemoteDataModule(BuildConfig.LOCATIONIQ_API_KEY))
             .build()
     }
 

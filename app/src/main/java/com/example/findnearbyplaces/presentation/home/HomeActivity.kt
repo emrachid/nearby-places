@@ -9,11 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.findnearbyplaces.R
-import com.example.findnearbyplaces.data.model.place.Location
+import com.example.findnearbyplaces.data.model.maps.Location
 import com.example.findnearbyplaces.databinding.HomeActivityBinding
 import com.example.findnearbyplaces.presentation.di.Injector
 import com.example.findnearbyplaces.presentation.place.PlaceActivity
 import com.example.findnearbyplaces.util.AlertDialog
+import com.example.findnearbyplaces.util.LocationType
 import com.example.findnearbyplaces.util.PermissionControl
 import com.google.android.gms.location.LocationServices
 import javax.inject.Inject
@@ -27,10 +28,6 @@ class HomeActivity : AppCompatActivity() {
 
         const val KEY_LOCATION = "key_location"
         const val KEY_TYPE = "key_type"
-
-        private const val BARS_TYPE = "bar"
-        private const val CAFES_TYPE = "cafe"
-        private const val RESTAURANT_TYPE = "restaurant"
     }
 
     private lateinit var homeViewModel: HomeViewModel
@@ -46,13 +43,13 @@ class HomeActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.home_activity)
 
         binding.barsButton.setOnClickListener {
-            showPlaces(BARS_TYPE)
+            showPlaces(LocationType.BARS)
         }
         binding.cafesButton.setOnClickListener {
-            showPlaces(CAFES_TYPE)
+            showPlaces(LocationType.CAFES)
         }
         binding.restaurantsButton.setOnClickListener {
-            showPlaces(RESTAURANT_TYPE)
+            showPlaces(LocationType.RESTAURANT)
         }
         binding.locationButton.setOnClickListener {
             showLocation()
@@ -127,7 +124,7 @@ class HomeActivity : AppCompatActivity() {
         responseLiveData.observe(this, {
             if (it != null) {
                 setButtonsState(true)
-                binding.locationTxt.text = "Location: ${it.road}"
+                binding.locationTxt.text = "Location: ${it.street}"
             } else {
                 Toast.makeText(
                     applicationContext,

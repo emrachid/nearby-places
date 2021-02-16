@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.findnearbyplaces.BuildConfig
 import com.example.findnearbyplaces.R
-import com.example.findnearbyplaces.data.model.place.Place
+import com.example.findnearbyplaces.data.model.Place
 import com.example.findnearbyplaces.databinding.ListItemBinding
 
 class PlaceAdapter: RecyclerView.Adapter<PlaceViewHolder>() {
@@ -40,7 +40,7 @@ class PlaceAdapter: RecyclerView.Adapter<PlaceViewHolder>() {
 class PlaceViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(place: Place) {
         binding.titleTextView.text = place.name
-        binding.descriptionTextView.text = place.business_status
+        binding.descriptionTextView.text = place.distance.toInt().toString() + " m"
         place.photos?.get(0)?.photo_reference?.let {
             val photoURL = "https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=" +
                     it + "&key=${BuildConfig.GOOGLE_API_KEY}"

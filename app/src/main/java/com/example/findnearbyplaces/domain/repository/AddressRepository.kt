@@ -1,7 +1,7 @@
 package com.example.findnearbyplaces.domain.repository
 
-import com.example.findnearbyplaces.data.model.address.Address
-import com.example.findnearbyplaces.data.model.place.Location
+import com.example.findnearbyplaces.data.model.Address
+import com.example.findnearbyplaces.data.model.maps.Location
 
 interface AddressRepository {
     suspend fun findByLocation(location: Location): Address?

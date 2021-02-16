@@ -1,8 +1,8 @@
 package com.example.findnearbyplaces.data.repository.address.datasourceimpl
 
 import android.util.Log
-import com.example.findnearbyplaces.data.model.address.Address
-import com.example.findnearbyplaces.data.model.place.Location
+import com.example.findnearbyplaces.data.model.Address
+import com.example.findnearbyplaces.data.model.maps.Location
 import com.example.findnearbyplaces.data.repository.address.datasource.AddressCacheDataSource
 
 class AddressCacheDataSourceImpl : AddressCacheDataSource {

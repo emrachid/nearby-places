@@ -1,4 +1,4 @@
-package com.example.findnearbyplaces.data.model.address
+package com.example.findnearbyplaces.data.model.locationiq
 
 data class Address(
     val city: String,

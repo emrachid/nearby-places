@@ -1,6 +1,6 @@
 package com.example.findnearbyplaces.presentation.di.core
 
-import com.example.findnearbyplaces.data.api.SearchPlacesService
+import com.example.findnearbyplaces.data.api.GoogleMapsAPIService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -21,7 +21,7 @@ class GooglePlacesApiModule(private val baseUrl: String) {
 
     @Singleton
     @Provides
-    fun provideSearchPlacesService(retrofit: Retrofit): SearchPlacesService {
-        return retrofit.create(SearchPlacesService::class.java)
+    fun provideSearchPlacesService(retrofit: Retrofit): GoogleMapsAPIService {
+        return retrofit.create(GoogleMapsAPIService::class.java)
     }
 }

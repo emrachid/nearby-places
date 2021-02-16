@@ -19,6 +19,7 @@ import javax.inject.Singleton
     RepositoryModule::class,
     UseCaseModule::class,
     DataBaseModule::class,
+    APIServiceModule::class
 ])
 interface AppComponent {
     fun placeSubComponent(): PlaceSubComponent.Factory

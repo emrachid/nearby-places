@@ -1,8 +1,8 @@
 package com.example.findnearbyplaces.data.repository
 
 import android.util.Log
-import com.example.findnearbyplaces.data.model.address.Address
-import com.example.findnearbyplaces.data.model.place.Location
+import com.example.findnearbyplaces.data.model.Address
+import com.example.findnearbyplaces.data.model.maps.Location
 import com.example.findnearbyplaces.data.repository.address.datasource.AddressCacheDataSource
 import com.example.findnearbyplaces.data.repository.address.datasource.AddressLocalDataSource
 import com.example.findnearbyplaces.data.repository.address.datasource.AddressRemoteDataSource
@@ -25,14 +25,9 @@ class AddressRepositoryImpl(
     }
 
     private suspend fun getAddressFromApi(location: Location): Address? {
-        return try {
-            val response = addressRemoteDataSource.getAddress(location)
-            Log.d(TAG, "getAddressFromApi: $response")
-            response.body()?.address
-        } catch (exception: Exception) {
-            Log.d(TAG, exception.toString())
-            null
-        }
+        val address = addressRemoteDataSource.getAddress(location)
+        Log.d(TAG, "getAddressFromApi: $address")
+        return address
     }
 
     private suspend fun getAddressFromLocalDb(location: Location) : Address? {

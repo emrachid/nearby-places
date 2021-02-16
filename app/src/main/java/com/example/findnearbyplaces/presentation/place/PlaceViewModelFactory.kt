@@ -6,6 +6,9 @@ import com.example.findnearbyplaces.domain.usecase.GetNearByPlaces
 
 class PlaceViewModelFactory(private val getNearByPlaces: GetNearByPlaces): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return PlaceViewModel(getNearByPlaces) as T
+        if (modelClass.isAssignableFrom(PlaceViewModel::class.java)) {
+            return PlaceViewModel(getNearByPlaces) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

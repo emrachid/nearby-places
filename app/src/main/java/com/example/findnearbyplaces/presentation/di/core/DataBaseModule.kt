@@ -15,6 +15,7 @@ class DataBaseModule {
     @Provides
     fun provideAddressDataBase(context: Context): StreetAddressDatabase {
         return Room.databaseBuilder(context, StreetAddressDatabase::class.java, "street-address")
+            .fallbackToDestructiveMigration()
             .build()
     }
 

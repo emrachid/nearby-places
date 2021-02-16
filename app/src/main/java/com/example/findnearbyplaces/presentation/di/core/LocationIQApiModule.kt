@@ -1,6 +1,6 @@
 package com.example.findnearbyplaces.presentation.di.core
 
-import com.example.findnearbyplaces.data.api.ReverseGeocodingService
+import com.example.findnearbyplaces.data.api.LocationIQService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -23,7 +23,7 @@ class LocationIQApiModule(private val baseUrl: String) {
 
     @Singleton
     @Provides
-    fun provideReverseGeocodingService(@Named("retrofit_locationIQ") retrofit: Retrofit): ReverseGeocodingService {
-        return retrofit.create(ReverseGeocodingService::class.java)
+    fun provideReverseGeocodingService(@Named("retrofit_locationIQ") retrofit: Retrofit): LocationIQService {
+        return retrofit.create(LocationIQService::class.java)
     }
 }

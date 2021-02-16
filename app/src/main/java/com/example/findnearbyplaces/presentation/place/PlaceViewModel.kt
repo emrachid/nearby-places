@@ -2,7 +2,7 @@ package com.example.findnearbyplaces.presentation.place
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.findnearbyplaces.data.model.place.Location
+import com.example.findnearbyplaces.data.model.maps.Location
 import com.example.findnearbyplaces.domain.usecase.GetNearByPlaces
 
 class PlaceViewModel(private val getNearByPlaces: GetNearByPlaces): ViewModel() {

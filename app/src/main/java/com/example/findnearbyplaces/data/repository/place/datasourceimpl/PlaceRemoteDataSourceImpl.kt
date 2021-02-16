@@ -1,16 +1,14 @@
 package com.example.findnearbyplaces.data.repository.place.datasourceimpl
 
-import com.example.findnearbyplaces.data.api.SearchPlacesService
-import com.example.findnearbyplaces.data.model.place.Location
-import com.example.findnearbyplaces.data.model.place.NearByResponse
+import com.example.findnearbyplaces.data.api.APIService
+import com.example.findnearbyplaces.data.model.Place
+import com.example.findnearbyplaces.data.model.maps.Location
 import com.example.findnearbyplaces.data.repository.place.datasource.PlaceRemoteDataSource
-import retrofit2.Response
 
 class PlaceRemoteDataSourceImpl(
-    private val searchPlacesService: SearchPlacesService,
-    private val apiKey: String
+    private val apiService: APIService
 ) : PlaceRemoteDataSource {
-    override suspend fun getNearByPlaces(type: String, location: Location): Response<NearByResponse> {
-        return searchPlacesService.getNearByPlaces(type, location, apiKey)
+    override suspend fun getNearByPlaces(type: String, location: Location): List<Place>? {
+        return apiService.getNearByPlaces(type, location)
     }
 }

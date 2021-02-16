@@ -2,8 +2,8 @@ package com.example.findnearbyplaces.data.repository.address.datasourceimpl
 
 import com.example.findnearbyplaces.data.db.StreetAddress
 import com.example.findnearbyplaces.data.db.StreetAddressDAO
-import com.example.findnearbyplaces.data.model.address.Address
-import com.example.findnearbyplaces.data.model.place.Location
+import com.example.findnearbyplaces.data.model.Address
+import com.example.findnearbyplaces.data.model.maps.Location
 import com.example.findnearbyplaces.data.repository.address.datasource.AddressLocalDataSource
 
 class AddressLocalDataSourceImpl(private val streetAddressDAO: StreetAddressDAO) : AddressLocalDataSource {

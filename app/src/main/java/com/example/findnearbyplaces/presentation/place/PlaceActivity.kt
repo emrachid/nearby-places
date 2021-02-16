@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.findnearbyplaces.R
-import com.example.findnearbyplaces.data.model.place.Location
+import com.example.findnearbyplaces.data.model.maps.Location
 import com.example.findnearbyplaces.databinding.PlaceActivityBinding
 import com.example.findnearbyplaces.presentation.di.Injector
 import com.example.findnearbyplaces.presentation.home.HomeActivity

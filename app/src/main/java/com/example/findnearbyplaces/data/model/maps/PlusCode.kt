@@ -1,4 +1,4 @@
-package com.example.findnearbyplaces.data.model.place
+package com.example.findnearbyplaces.data.model.maps
 
 data class PlusCode(
     val compound_code: String,
