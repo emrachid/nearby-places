@@ -37,14 +37,20 @@ class PlaceAdapter: RecyclerView.Adapter<PlaceViewHolder>() {
     }
 }
 
-class PlaceViewHolder(val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class PlaceViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(place: Place) {
         binding.titleTextView.text = place.name
-        binding.descriptionTextView.text = place.distance.toInt().toString() + " m"
+        binding.descriptionTextView.text = "${place.distance.toInt()} m"
+        binding.imageView.setImageResource(android.R.drawable.ic_menu_gallery)
         place.photos?.get(0)?.photo_reference?.let {
             val photoURL = "https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=" +
                     it + "&key=${BuildConfig.GOOGLE_API_KEY}"
-            Glide.with(binding.imageView.context).load(photoURL).into(binding.imageView)
+            Glide.with(binding.imageView.context)
+                .load(photoURL)
+                .centerCrop()
+                .placeholder(android.R.drawable.ic_menu_gallery)
+                .into(binding.imageView)
         }
     }
 }

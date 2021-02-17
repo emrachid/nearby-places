@@ -17,4 +17,5 @@
     <string name="find_near_by_places">Find near by places</string>
     <string name="finding_current_location">Finding current location...</string>
     <string name="refresh_current_location">Refresh current location</string>
+    <string name="showing_the_image_of_the_place">Showing the image of the place</string>
 </resources>

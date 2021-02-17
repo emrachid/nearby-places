@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="TextView"
+                    tools:text="TextView"
                     android:textColor="@android:color/background_light"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -39,16 +39,15 @@
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/avatars"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="@string/showing_the_image_of_the_place" />
 
                 <TextView
                     android:id="@+id/description_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="TextView"
+                    tools:text="TextView"
                     android:textColor="@android:color/background_light"
                     android:textSize="24sp"
                     android:textStyle="bold" />
