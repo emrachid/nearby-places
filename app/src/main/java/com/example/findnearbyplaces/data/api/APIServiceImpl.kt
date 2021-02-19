@@ -7,6 +7,8 @@ import com.example.findnearbyplaces.data.model.Place
 import com.example.findnearbyplaces.data.model.maps.Location
 import com.example.findnearbyplaces.util.LocationDistance
 import com.example.findnearbyplaces.util.LocationType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 class APIServiceImpl(private val googleMapsAPIService: GoogleMapsAPIService,
@@ -83,82 +85,95 @@ class APIServiceImpl(private val googleMapsAPIService: GoogleMapsAPIService,
 
     private suspend fun getAddressUsingMapsAPI(location: Location): Address? {
         var address: Address? = null
-        try {
-            val response = googleMapsAPIService.reverseGeocodingIntoAddress(location, BuildConfig.GOOGLE_API_KEY)
-            if (response.isSuccessful && response.body()?.status == "OK") {
-                response.body()?.results?.get(0)?.address_components?.forEach {
-                    if (it.types.contains("route")) {
-                        address = Address(it.short_name)
+
+        withContext(Dispatchers.IO) {
+            try {
+                val response = googleMapsAPIService.reverseGeocodingIntoAddress(location, BuildConfig.GOOGLE_API_KEY)
+                if (response.isSuccessful && response.body()?.status == "OK") {
+                    response.body()?.results?.get(0)?.address_components?.forEach {
+                        if (it.types.contains("route")) {
+                            address = Address(it.short_name)
+                        }
                     }
                 }
+            } catch (exception: Exception) {
+                exception.printStackTrace()
             }
-        } catch (exception: Exception) {
-            exception.printStackTrace()
         }
+
         return address
     }
 
     private suspend fun getAddressUsingLocationIQ(location: Location): Address? {
         var address: Address? = null
-        try {
-            val response = locationIQService.reverseGeocodingIntoAddress(location.lat.toString(),
-                location.lng.toString(), BuildConfig.LOCATIONIQ_API_KEY)
 
-            if (response.isSuccessful) {
-                response.body()?.address?.road?.let { address = Address(it) }
+        withContext(Dispatchers.IO) {
+            try {
+                val response = locationIQService.reverseGeocodingIntoAddress(location.lat.toString(),
+                        location.lng.toString(), BuildConfig.LOCATIONIQ_API_KEY)
+
+                if (response.isSuccessful) {
+                    response.body()?.address?.road?.let { address = Address(it) }
+                }
+            } catch (exception: Exception) {
+                exception.printStackTrace()
             }
-        } catch (exception: Exception) {
-            exception.printStackTrace()
         }
 
         return address
     }
 
     private suspend fun getNearByPlacesMapsAPI(type: String, location: Location): List<Place>? {
-        var places: List<Place>? = null
-        try {
-            if (BuildConfig.GOOGLE_API_KEY.isNotBlank()) {
-                val response =
-                    googleMapsAPIService.getNearByPlaces(type, location, BuildConfig.GOOGLE_API_KEY)
-                if (response.isSuccessful && response.body()?.status == "OK") {
-                    places = mutableListOf()
-                    response.body()?.results?.forEach {
-                        val place = Place(
-                            it.business_status, it.name, it.photos,
-                            locationDistance.getInMeters(location, it.geometry.location)
-                        )
-                        places.add(place)
-                        Log.d(TAG, "MapsAPI: place = $place")
+        var places: MutableList<Place>? = null
+
+        withContext(Dispatchers.IO) {
+            try {
+                if (BuildConfig.GOOGLE_API_KEY.isNotBlank()) {
+                    val response =
+                            googleMapsAPIService.getNearByPlaces(type, location, BuildConfig.GOOGLE_API_KEY)
+                    if (response.isSuccessful && response.body()?.status == "OK") {
+                        places = mutableListOf()
+                        response.body()?.results?.forEach {
+                            val place = Place(
+                                    it.business_status, it.name, it.photos,
+                                    locationDistance.getInMeters(location, it.geometry.location)
+                            )
+                            places!!.add(place)
+                            Log.d(TAG, "MapsAPI: place = $place")
+                        }
                     }
                 }
+            } catch (exception: Exception) {
+                exception.printStackTrace()
             }
-        } catch (exception: Exception) {
-            exception.printStackTrace()
         }
 
         return places
     }
 
     private suspend fun getNearByPlacesLocationIQ(type: String, location: Location): List<Place>? {
-        var places: List<Place>? = null
-        try {
-            if (BuildConfig.LOCATIONIQ_API_KEY.isNotBlank()) {
-                val response = locationIQService.getNearByPlaces(LocationType.getLocationIQType(type),
-                    location.lat.toString(), location.lng.toString(), BuildConfig.LOCATIONIQ_API_KEY)
+        var places: MutableList<Place>? = null
 
-                if (response.isSuccessful && response.body()?.isNotEmpty() == true) {
-                    places = mutableListOf()
-                    response.body()?.forEach {
-                        if (it.name?.isNotBlank() == true) {
-                            val place = Place("", it.name, null, it.distance.toDouble())
-                            places.add(place)
-                            Log.d(TAG, "LocationIQ: place = $place")
+        withContext(Dispatchers.IO) {
+            try {
+                if (BuildConfig.LOCATIONIQ_API_KEY.isNotBlank()) {
+                    val response = locationIQService.getNearByPlaces(LocationType.getLocationIQType(type),
+                            location.lat.toString(), location.lng.toString(), BuildConfig.LOCATIONIQ_API_KEY)
+
+                    if (response.isSuccessful && response.body()?.isNotEmpty() == true) {
+                        places = mutableListOf()
+                        response.body()?.forEach {
+                            if (it.name?.isNotBlank() == true) {
+                                val place = Place("", it.name, null, it.distance.toDouble())
+                                places!!.add(place)
+                                Log.d(TAG, "LocationIQ: place = $place")
+                            }
                         }
                     }
                 }
+            } catch (exception: Exception) {
+                exception.printStackTrace()
             }
-        } catch (exception: Exception) {
-            exception.printStackTrace()
         }
 
         return places
